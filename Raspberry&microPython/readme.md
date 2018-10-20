@@ -12,3 +12,11 @@ delete <span style="color: blue">console=serial0(or ttyAMA0),115200</span> or <s
 
 reboot
 </pre>
+
+----------------------------------
+
+<pre>
+for micropython esp32
+
+rx_pin = io9, tx_pin = io10
+</pre>

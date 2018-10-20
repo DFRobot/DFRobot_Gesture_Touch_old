@@ -19,13 +19,8 @@
 #include "Keyboard.h"
 #include "DFRobot_Gesture_Touch.h"
 
-#ifdef __AVR__
-  #include "SoftwareSerial.h"
-  SoftwareSerial    mySerial(10, 11);         // example for uno, use software serial
-#elif defined ESP_PLATFORM
-  #include "HardwareSerial.h"
-  HardwareSerial    mySerial(1);
-#endif
+#include "SoftwareSerial.h"
+SoftwareSerial    mySerial(10, 11);         // example for uno, use software serial
 
 DFRobot_Gesture_Touch   DFGT(&mySerial);    // init sensor object, request write and read function
 

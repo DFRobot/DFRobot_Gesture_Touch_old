@@ -7,6 +7,8 @@
  *
  * sensor event will print on your serial monitor
  *
+ * for esp32, rx_pin = D5, tx_pin = D6
+ *
  * Copyright   [DFRobot](http://www.dfrobot.com), 2016
  * Copyright   GNU Lesser General Public License
  *
