@@ -97,7 +97,7 @@ void disableFunction(uint8_t func);
 int8_t getAnEvent();
 /*
  * check and get an event saved in serial's buffer
- * @return sensor an event or DF_ERR
+ * @return an event or DF_ERR
  */
 ```
 
