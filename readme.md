@@ -49,9 +49,9 @@ void setGestureInterval(uint16_t t);
 void setGestureDistance(uint8_t dis);
  
 /*
-* set sensor auto sleep time out
-* @param sec   unit sencond, sec cant be 1 or 255
-*/
+ * set sensor auto sleep time out
+ * @param sec   unit sencond, sec cant be 1 or 255
+ */
 void setSleep(uint8_t sec):
 
 // functions for sensor, use with enableFunction/disableFunction
