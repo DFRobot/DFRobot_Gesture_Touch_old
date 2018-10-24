@@ -102,6 +102,53 @@ void disableFunction(uint8_t func);
  * @return an event or DF_ERR
  */
 int8_t getAnEvent();
+
+```
+
+python lib is similar to c++ lib
+
+```py
+class Gesture_Touch:
+
+  FUN_RIGHT = 0x01
+  FUN_LEFT = 0x02
+  FUN_BACK = 0x03
+  FUN_FORWARD = 0x04
+  FUN_PULLUP = 0x05
+  FUN_PULLDOWN = 0x06
+  FUN_TOUCH1 = 0x09
+  FUN_TOUCH2 = 0x0A
+  FUN_TOUCH3 = 0x0B
+  FUN_TOUCH4 = 0x0C
+  FUN_TOUCH5 = 0x0D
+  FUN_ALL = 0xff
+
+  EVT_RIGHT = 0x01
+  EVT_LEFT = 0x02
+  EVT_BACK = 0x03
+  EVT_FORWARD = 0x04
+  EVT_PULLUP = 0x05
+  EVT_PULLDOWN = 0x06
+  EVT_PULLREMOVE = 0x07
+  EVT_TOUCH1 = 0x21
+  EVT_TOUCH2 = 0x22
+  EVT_TOUCH3 = 0x23
+  EVT_TOUCH4 = 0x24
+  EVT_TOUCH5 = 0x25
+
+  def __init__(self, txPin = None, rxPin = None):
+
+  def setGestureInterval(self, t):
+
+  def setGestureDistance(self, dis):
+
+  def setSleep(self, sec):
+
+  def enableFunction(self, func):
+  
+  def disableFunction(self, func):
+  
+  def getAnEvent(self):
 ```
 
 ## Compatibility
@@ -113,7 +160,7 @@ MCU                | Work Well | Work Wrong | Untested  | Remarks
 FireBeetle esp32 |       √      |             |            |
 FireBeetle esp8266 |             |      √       |            |
 Arduino uno |       √      |             |            |
-Arduino leonardo |      √       |             |            |  example: gestureKeyboard
+Arduino leonardo |      √       |             |            | a proprietary example gestureKeyboard.ino for this plaform
 
 Python:
 
