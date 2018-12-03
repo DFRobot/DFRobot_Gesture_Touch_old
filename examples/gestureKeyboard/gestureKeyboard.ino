@@ -32,7 +32,6 @@ void setup()
   while(!Serial);                                         // wait until usb serial open
   Serial.println("gesture keyboard demo on leonardo");    
   DFGT.enableFunction(DFGT_FUN_ALL);
-  DFGT.setGestureInterval(300);                           // suggest gesture interval
 }
 
 void pressHelper(uint8_t key)  // press and release key

@@ -21,19 +21,31 @@ class Gesture_Touch:
   CMD_SLEEP = 0x52
   CMD_DISTANCE = 0x54
   CMD_ENABLE = 0x55
+  
+  MASK_RIGHT = 0x01
+  MASK_LEFT = 0x02
+  MASK_BACK = 0x03
+  MASK_FORWARD = 0x04
+  MASK_PULLUP = 0x05
+  MASK_PULLDOWN = 0x06
+  MASK_TOUCH1 = 0x09
+  MASK_TOUCH2 = 0x0A
+  MASK_TOUCH3 = 0x0B
+  MASK_TOUCH4 = 0x0C
+  MASK_TOUCH5 = 0x0D
 
   FUN_RIGHT = 0x01
   FUN_LEFT = 0x02
-  FUN_BACK = 0x03
-  FUN_FORWARD = 0x04
-  FUN_PULLUP = 0x05
-  FUN_PULLDOWN = 0x06
-  FUN_TOUCH1 = 0x09
-  FUN_TOUCH2 = 0x0A
-  FUN_TOUCH3 = 0x0B
-  FUN_TOUCH4 = 0x0C
-  FUN_TOUCH5 = 0x0D
-  FUN_ALL = 0xff
+  FUN_BACK = 0x04
+  FUN_FORWARD = 0x08
+  FUN_PULLUP = 0x10
+  FUN_PULLDOWN = 0x20
+  FUN_TOUCH1 = 0x40
+  FUN_TOUCH2 = 0x80
+  FUN_TOUCH3 = 0x100
+  FUN_TOUCH4 = 0x200
+  FUN_TOUCH5 = 0x400
+  FUN_ALL = 0x7ff
 
   EVT_RIGHT = 0x01
   EVT_LEFT = 0x02
@@ -47,6 +59,8 @@ class Gesture_Touch:
   EVT_TOUCH3 = 0x23
   EVT_TOUCH4 = 0x24
   EVT_TOUCH5 = 0x25
+  
+  SLEEP_DISABLE = 0xff
 
   def __init__(self, txPin = None, rxPin = None):
     self._ser = None
@@ -80,38 +94,31 @@ class Gesture_Touch:
     self._serWrite(bytearray([self.SEND_HEAD, cmd, value & 0xff, (cmd ^ value) & 0xff, self.SEND_END]))
     self.sleep(0.002)
 
-  def setGestureInterval(self, t):
-    if t > 2550:
-      return
-    self._setCmd(self.CMD_INTERVAL, t // 10)
-
   def setGestureDistance(self, dis):
     if dis > 30:
       return
+    self._setCmd(self.CMD_DISTANCE, 0xff)
     self._setCmd(self.CMD_DISTANCE, 0x20 + (0xfe - 0x20) // 30 * dis)
 
   def setSleep(self, sec):
     if sec == 1 or sec > 255:
       return
     self._setCmd(self.CMD_SLEEP, sec)
+    
+  def _enableFuncHelper(self, start, func):
+    while func > 0:
+      if func & 0x01:
+        self._setCmd(self.CMD_ENABLE, func)
+      start += 1
+      func >>= 1
 
   def enableFunction(self, func):
-    if func == self.FUN_ALL:
-      for i in range(0x11, 0x17):
-        self._setCmd(self.CMD_ENABLE, i)
-      for i in range(0x19, 0x1e):
-        self._setCmd(self.CMD_ENABLE, i)
-    else:
-      self._setCmd(self.CMD_ENABLE, func)
+    self._enableFuncHelper(self.MASK_RIGHT | 0x10, func & 0x3f)
+    self._enableFuncHelper(self.MASK_TOUCH1 | 0x10, (func & 0x7ff) >> 6)
   
   def disableFunction(self, func):
-    if func == self.FUN_ALL:
-      for i in range(0x01, 0x07):
-        self._setCmd(self.CMD_ENABLE, i)
-      for i in range(0x09, 0x0e):
-        self._setCmd(self.CMD_ENABLE, i)
-    else:
-      self._setCmd(self.CMD_ENABLE, func | 0x10)
+    self._enableFuncHelper(self.MASK_RIGHT, func & 0x3f)
+    self._enableFuncHelper(self.MASK_TOUCH1, (func & 0x7ff) >> 6)
   
   def getAnEvent(self):
     rslt = self.ERR

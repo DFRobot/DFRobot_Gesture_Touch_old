@@ -11,12 +11,10 @@ elif sys.platform == "esp32":  # esp32
 
 print("Gesture&Touch sensor test")
 
-# attention: setttings will be save before power down
-GT.setGestureInterval(300)          # suggest gesture interval
-#GT.setGestureDistance(30)           # suggest default value
+#GT.setGestureDistance(20)           # suggest default value
 GT.enableFunction(GT.FUN_ALL)       # enable all functions
-#GT.disableFunction(GT.FUN_RIGHT)    # disable function test
-#GT.enableFunction(GT.FUN_RIGHT)     # enable function test
+#GT.disableFunction(GT.FUN_RIGHT | GT.FUN_LEFT)    # disable function test
+#GT.enableFunction(GT.FUN_RIGHT | GT.FUN_LEFT)     # enable function test
 #GT.setSleep(10)                     # set auto sleep time out
 
 while True:

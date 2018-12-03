@@ -33,23 +33,22 @@ void setup()
   Serial.begin(115200);
   mySerial.begin(9600);
   delay(2000);
-  while(mySerial.available())
+  while(mySerial.available())  // flush serial buffer
     mySerial.read();
   Serial.println("gesture&touch sensor test");
-  
-  // attention: setttings will be save before power down
-  DFGT.setGestureInterval(300);               // suggest gesture interval
-  // DFGT.setGestureDistance(30);             // suggest default value
+
+  DFGT.setGestureDistance(20);             // suggest default value
   // DFGT.enableFunction(DFGT_FUN_ALL);       // enable all functions
-  // DFGT.disableFunction(DFGT_FUN_RIGHT);    // disable function test
-  // DFGT.enableFunction(DFGT_FUN_RIGHT);     // enable function test
-  // DFGT.setSleep(10);                       // set auto sleep time out
+  // DFGT.disableFunction(DFGT_FUN_RIGHT | DFGT_FUN_LEFT);    // disable function test
+  // DFGT.enableFunction(DFGT_FUN_RIGHT | DFGT_FUN_LEFT);     // enable function test
+  // DFGT.setSleep(4);                        // set auto sleep time out, in sleep mode, put something
 }
 
 void loop()
 {
-  int8_t    rslt = DFGT.getAnEvent();  // get an event that data saved in serial's buffer
+  int8_t    rslt = DFGT.getAnEvent();  // get an event that data saved in serial buffer
   if(rslt != DF_ERR) {
+    // DFGT.setSleep(DFGT_SLEEP_DISABLE);  // disable auto sleep
     switch(rslt) {
       case DFGT_EVT_BACK: {
         Serial.println("get event back");

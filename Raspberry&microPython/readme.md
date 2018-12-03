@@ -11,8 +11,15 @@ edit /boot/cmdline.txt <br>
 <pre>
 sudo nano /boot/cmdline.txt
 </pre>
-delete <span style="color: blue">console=serial0(or ttyAMA0),115200</span> or  <br>
-<span style="color: blue">console=serial0,115200 console=ttyAMA0,115200</span> in this file. <br>
+delete 
+<pre>
+style="color: blue">console=serial0(or ttyAMA0),115200
+</pre>
+or <br>
+<pre>
+console=serial0,115200 console=ttyAMA0,115200
+</pre>
+in this file. <br>
  <br>
 reboot
 

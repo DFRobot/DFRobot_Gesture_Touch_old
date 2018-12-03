@@ -5,12 +5,9 @@
 --The sensor is able to recognize 7 gestures including move right, move left, forward, backward, 
   press down, stretch up, and release after stretching up and pressing down.
 --It can also identify 5 way touch signal and is equipped with the functionality of auto sleep and wake up.
---The sensor features small size, low power consumption and reliable detection sensitivity with the operating 
-  current of 56.3mA and sleep current of 40uA.
---The gesture recognition algorithm and data handling program have been burned into the module, which ensures 
-  concise and reliable output data.
---The sensor can directly communicate with Arduino controller, Raspberry Pi controller and host computer via 
-  serial port.
+--The sensor features small size, low power consumption and reliable detection sensitivity with the operating current of 56.3mA and sleep current of 40uA.
+--The gesture recognition algorithm and data handling program have been burned into the module, which ensures concise and reliable output data.
+--The sensor can directly communicate with Arduino controller, Raspberry Pi controller and host computer via serial port.
 --The packet format is 8-bit data frame.
 </pre>
 
@@ -26,21 +23,7 @@ To use this library download the zip file, uncompress it to a folder named DFRob
 
 ## Methods
 
-<span style="color: red">attention: setttings will be save before power down.</span>
 ```C++
-
-/*
- * init sensor object
- * @param pfSend    function for write data to sensor
- *        pfRead    function for read data from sensor
- */
-DFRobot_Gesture_Touch(pfGT_send_t pfSend, pfGT_read_t pfRead);
-
-/*
- * set gesture induction interval time
- * @param t   millis time, 0<t<2550
- */
-void setGestureInterval(uint16_t t);
 
 /*
  * set gesture induction distance
@@ -49,36 +32,36 @@ void setGestureInterval(uint16_t t);
 void setGestureDistance(uint8_t dis);
  
 /*
- * set sensor auto sleep time out
- * @param sec   unit sencond, sec cant be 1 or 255
+ * set sensor auto sleep time out, wake sensor when something approaching gesture sensing device
+ * @param sec   unit sencond, sec cant be 1 to 254, use define DFGT_SLEEP_DISABLE to disable it
  */
-void setSleep(uint8_t sec):
+void setSleep(uint8_t sec);
 
 // functions for sensor, use with enableFunction/disableFunction
-#define DFGT_FUN_RIGHT      0x01
-#define DFGT_FUN_LEFT       0x02
-#define DFGT_FUN_BACK       0x03
-#define DFGT_FUN_FORWARD    0x04
-#define DFGT_FUN_PULLUP     0x05
-#define DFGT_FUN_PULLDOWN   0x06
-#define DFGT_FUN_TOUCH1     0x09
-#define DFGT_FUN_TOUCH2     0x0A
-#define DFGT_FUN_TOUCH3     0x0B
-#define DFGT_FUN_TOUCH4     0x0C
-#define DFGT_FUN_TOUCH5     0x0D
-#define DFGT_FUN_ALL        0xFF
+#define DFGT_FUN_RIGHT   
+#define DFGT_FUN_LEFT    
+#define DFGT_FUN_BACK    
+#define DFGT_FUN_FORWARD 
+#define DFGT_FUN_PULLUP  
+#define DFGT_FUN_PULLDOWN
+#define DFGT_FUN_TOUCH1  
+#define DFGT_FUN_TOUCH2  
+#define DFGT_FUN_TOUCH3  
+#define DFGT_FUN_TOUCH4  
+#define DFGT_FUN_TOUCH5  
+#define DFGT_FUN_ALL     
 
 /*
  * set sensor function enable
  * @param func    select function
  */
-void enableFunction(uint8_t func);
+void enableFunction(uint16_t func);
 
 /*
  * set sensor function disable
  * @param func    select function
  */
-void disableFunction(uint8_t func);
+void disableFunction(uint16_t func);
 
 // sensor events
 #define DFGT_EVT_RIGHT        0x01
@@ -98,7 +81,7 @@ void disableFunction(uint8_t func);
 #define DF_ERR  -1
 
 /*
- * check and get an event saved in serial's buffer
+ * check and get an event saved in serial buffer
  * @return an event or DF_ERR
  */
 int8_t getAnEvent();
@@ -135,10 +118,10 @@ class Gesture_Touch:
   EVT_TOUCH3 = 0x23
   EVT_TOUCH4 = 0x24
   EVT_TOUCH5 = 0x25
+  
+  SLEEP_DISABLE = 0xff
 
   def __init__(self, txPin = None, rxPin = None):
-
-  def setGestureInterval(self, t):
 
   def setGestureDistance(self, dis):
 
@@ -160,7 +143,7 @@ MCU                | Work Well | Work Wrong | Untested  | Remarks
 FireBeetle esp32 |       √      |             |            |
 FireBeetle esp8266 |             |      √       |            |
 Arduino uno |       √      |             |            |
-Arduino leonardo |      √       |             |            | a proprietary example gestureKeyboard.ino for this plaform
+Arduino leonardo |      √       |             |            |  a proprietary example gestureKeyboard.ino for leonardo
 
 Python:
 

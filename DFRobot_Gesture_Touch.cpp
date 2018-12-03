@@ -8,22 +8,27 @@ void DFRobot_Gesture_Touch::set(uint8_t cmd, uint8_t value)
   _sSend.value = value;
   _sSend.verify = cmd ^ value;
   uint8_t   *pData = (uint8_t*) &_sSend;
-  for(uint8_t i = 0; i < sizeof(_sSend); i ++)
+  for(uint8_t i = 0; i < sizeof(_sSend); i ++) {
     _pSerial->write(pData[i]);
-  delay(2);
+    delay(2);
+  }
 }
 
-void DFRobot_Gesture_Touch::setGestureInterval(uint16_t t)
+void DFRobot_Gesture_Touch::enableFunctionHelper(uint8_t start, uint16_t func)
 {
-  if(t > 2550)
-    return;
-  set(DFGT_CMD_INTERVAL, t / 10);
+  while(func) {
+    if(func & 0x01)
+      set(DFGT_CMD_ENABLE, start);
+    start += 1;
+    func >>= 1;
+  }
 }
 
 void DFRobot_Gesture_Touch::setGestureDistance(uint8_t dis)
 {
   if(dis > 30)
     return;
+  set(DFGT_CMD_DISTANCE, 0xff);
   set(DFGT_CMD_DISTANCE, 0x20 + (0xfe - 0x20) / 30 * dis);
 }
 
@@ -31,29 +36,20 @@ void DFRobot_Gesture_Touch::setSleep(uint8_t sec)
 {
   if(sec == 1)
     return;
+  set(DFGT_CMD_SLEEP, 1);
   set(DFGT_CMD_SLEEP, sec);
 }
 
-void DFRobot_Gesture_Touch::enableFunction(uint8_t func)
+void DFRobot_Gesture_Touch::enableFunction(uint16_t func)
 {
-  if(func == DFGT_FUN_ALL) {
-    for(uint8_t i = 0x11; i < 0x17; i ++)
-      set(DFGT_CMD_ENABLE, i);
-    for(uint8_t i = 0x19; i < 0x1e; i ++)
-      set(DFGT_CMD_ENABLE, i);
-  } else
-    set(DFGT_CMD_ENABLE, func | 0x10);
+  enableFunctionHelper(DFGT_FUN_START1 | 0x10, (func & DFGT_FUN_PART1) >> DFGT_FUN_OFFSET1);
+  enableFunctionHelper(DFGT_FUN_START2 | 0x10, (func & DFGT_FUN_PART2) >> DFGT_FUN_OFFSET2);
 }
 
-void DFRobot_Gesture_Touch::disableFunction(uint8_t func)
+void DFRobot_Gesture_Touch::disableFunction(uint16_t func)
 {
-  if(func == DFGT_FUN_ALL) {
-    for(uint8_t i = 0x01; i < 0x07; i ++)
-      set(DFGT_CMD_ENABLE, i);
-    for(uint8_t i = 0x09; i < 0x0e; i ++)
-      set(DFGT_CMD_ENABLE, i);
-  } else
-    set(DFGT_CMD_ENABLE, func);
+  enableFunctionHelper(DFGT_FUN_START1, (func & DFGT_FUN_PART1) >> DFGT_FUN_OFFSET1);
+  enableFunctionHelper(DFGT_FUN_START2, (func & DFGT_FUN_PART2) >> DFGT_FUN_OFFSET2);
 }
 
 int8_t DFRobot_Gesture_Touch::getAnEvent()
