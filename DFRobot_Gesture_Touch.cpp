@@ -28,6 +28,8 @@ void DFRobot_Gesture_Touch::setGestureDistance(uint8_t dis)
 {
   if(dis > 30)
     return;
+  if(dis == 30)
+    dis -= 2;
   set(DFGT_CMD_DISTANCE, 0xff);
   set(DFGT_CMD_DISTANCE, 0x20 + (0xfe - 0x20) / 30 * dis);
 }
