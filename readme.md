@@ -5,8 +5,10 @@
 --The sensor is able to recognize 7 gestures including move right, move left, forward, backward, 
   press down, stretch up, and release after stretching up and pressing down.
 --It can also identify 5 way touch signal and is equipped with the functionality of auto sleep and wake up.
---The sensor features small size, low power consumption and reliable detection sensitivity with the operating current of 56.3mA and sleep current of 40uA.
---The gesture recognition algorithm and data handling program have been burned into the module, which ensures concise and reliable output data.
+--The sensor features small size, low power consumption and reliable detection sensitivity with the operating 
+  current of 56.3mA and sleep current of 40uA.
+--The gesture recognition algorithm and data handling program have been burned into the module, which ensures 
+  concise and reliable output data.
 --The sensor can directly communicate with Arduino controller, Raspberry Pi controller and host computer via serial port.
 --The packet format is 8-bit data frame.
 </pre>
