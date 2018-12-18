@@ -3,7 +3,7 @@ config on raspberry: <br>
  <br>
 edit /boot/config.txt
 <pre>
-sudo nano /boot/config.txt<
+sudo nano /boot/config.txt
 </pre>
 add <span style="color: blue">dtoverlay=pi3-disable-bt<span> at end of this file. <br>
  <br>
@@ -13,7 +13,7 @@ sudo nano /boot/cmdline.txt
 </pre>
 delete 
 <pre>
-style="color: blue">console=serial0(or ttyAMA0),115200
+console=serial0(or ttyAMA0),115200
 </pre>
 or <br>
 <pre>

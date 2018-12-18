@@ -39,7 +39,7 @@
 #define GT_FUN_TOUCH4     0x0C
 #define GT_FUN_TOUCH5     0x0D
 
-#define DF_BIT_OFFSET(x)  (0x0001 << x)
+#define DF_BIT_OFFSET(x)  (0x0001 << (x))
 
 #define DFGT_FUN_RIGHT      DF_BIT_OFFSET(0)
 #define DFGT_FUN_LEFT       DF_BIT_OFFSET(1)
