@@ -12,6 +12,7 @@ void DFRobot_Gesture_Touch::set(uint8_t cmd, uint8_t value)
     _pSerial->write(pData[i]);
     delay(2);
   }
+  delay(15);
 }
 
 void DFRobot_Gesture_Touch::enableFunctionHelper(uint8_t start, uint16_t func)

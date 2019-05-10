@@ -32,16 +32,17 @@ void setup()
 {
   Serial.begin(115200);
   mySerial.begin(9600);
-  delay(2000);
+  delay(500);
   while(mySerial.available())  // flush serial buffer
     mySerial.read();
   Serial.println("gesture&touch sensor test");
 
   DFGT.setGestureDistance(20);             // suggest default value
-  // DFGT.enableFunction(DFGT_FUN_ALL);       // enable all functions
+  DFGT.enableFunction(DFGT_FUN_ALL);       // enable all functions
   // DFGT.disableFunction(DFGT_FUN_RIGHT | DFGT_FUN_LEFT);    // disable function test
+  delay(20);
   // DFGT.enableFunction(DFGT_FUN_RIGHT | DFGT_FUN_LEFT);     // enable function test
-  // DFGT.setSleep(4);                        // set auto sleep time out, in sleep mode, put something
+  DFGT.setSleep(4);                        // set auto sleep time out, in sleep mode, something  approach will weak it up
 }
 
 void loop()
