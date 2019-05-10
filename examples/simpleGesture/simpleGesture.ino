@@ -39,10 +39,9 @@ void setup()
 
   DFGT.setGestureDistance(20);             // suggest default value
   DFGT.enableFunction(DFGT_FUN_ALL);       // enable all functions
-  // DFGT.disableFunction(DFGT_FUN_RIGHT | DFGT_FUN_LEFT);    // disable function test
-  delay(20);
+  DFGT.disableFunction(DFGT_FUN_RIGHT | DFGT_FUN_LEFT);    // disable function test
   // DFGT.enableFunction(DFGT_FUN_RIGHT | DFGT_FUN_LEFT);     // enable function test
-  DFGT.setSleep(4);                        // set auto sleep time out, in sleep mode, something  approach will weak it up
+  // DFGT.setSleep(4);                        // set auto sleep time out, in sleep mode, something  approach will weak it up
 }
 
 void loop()
