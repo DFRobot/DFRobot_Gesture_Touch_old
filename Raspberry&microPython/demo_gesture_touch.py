@@ -12,7 +12,7 @@ elif sys.platform == "esp32":  # esp32
 print("Gesture&Touch sensor test")
 
 #GT.setGestureDistance(20)           # suggest default value
-GT.enableFunction(GT.FUN_ALL)       # enable all functions
+#GT.enableFunction(GT.FUN_ALL)       # enable all functions
 #GT.disableFunction(GT.FUN_RIGHT | GT.FUN_LEFT)    # disable function test
 #GT.enableFunction(GT.FUN_RIGHT | GT.FUN_LEFT)     # enable function test
 #GT.setSleep(10)                     # set auto sleep time out
